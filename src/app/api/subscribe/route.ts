@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-let subscriptions: any[] = [];
+// Untuk demo, simpan subscription di memory (production: simpan di DB)
+const subscriptions: any[] = [];
 
 export async function POST(req: NextRequest) {
   const sub = await req.json();
-  // Simpan ke memory (untuk demo, sebaiknya ke DB di produksi)
   subscriptions.push(sub);
   return NextResponse.json({ success: true });
 }
 
-export function getAllSubscriptions() {
-  return subscriptions;
-}
+// Hapus ekspor fungsi lain, hanya ekspor handler HTTP!
