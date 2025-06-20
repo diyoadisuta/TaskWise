@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getUserIdFromRequest } from '@/lib/auth';
 
-// Next.js 13+ API Route: gunakan context.params untuk dynamic route
-export async function PUT(req: NextRequest, context: { params: { id: string } }) {
+// Next.js expects context as the second argument, not destructured
+export async function PUT(req: NextRequest, context: any) {
   const userId = getUserIdFromRequest(req);
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = context.params;
@@ -16,7 +16,7 @@ export async function PUT(req: NextRequest, context: { params: { id: string } })
   return NextResponse.json({ task });
 }
 
-export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: any) {
   const userId = getUserIdFromRequest(req);
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = context.params;
