@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Untuk demo, simpan subscription di memory (production: simpan di DB)
+// Simpan subscription di memory (untuk demo, production: simpan di DB)
 const subscriptions: any[] = [];
 
 export async function POST(req: NextRequest) {
@@ -9,4 +9,4 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ success: true });
 }
 
-// Hapus ekspor fungsi lain, hanya ekspor handler HTTP!
+// Hapus semua ekspor/fungsi lain, hanya ekspor handler HTTP!
