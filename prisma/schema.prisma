@@ -1,0 +1,44 @@
+// Prisma schema file for users and tasks tables
+// Run `npx prisma generate` after editing this file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  password_hash String   
+  created_at   DateTime  @default(now())
+  updated_at   DateTime? @updatedAt
+  tasks        Task[]
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id     String
+  title       String
+  description String?
+  due_date    DateTime?
+  priority    Priority  @default(SEDANG)
+  status      Status    @default(BELUM_SELESAI)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime? @updatedAt
+}
+
+enum Priority {
+  RENDAH
+  SEDANG
+  TINGGI
+}
+
+enum Status {
+  BELUM_SELESAI
+  SELESAI
+}
